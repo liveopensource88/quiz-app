@@ -33,6 +33,16 @@
           />
           <p v-if="form.errors.password" class="text-red-600 text-sm mt-1">{{ form.errors.password }}</p>
         </div>
+        <div class="mb-6">
+        <label class="block mb-1 text-sm font-semibold">Confirm Password</label>
+        <input
+          v-model="form.password_confirmation"
+          type="password"
+          class="w-full px-4 py-2 border rounded-lg"
+        />
+        <p v-if="form.errors.password_confirmation" class="text-red-600 text-sm mt-1">{{ form.errors.password_confirmation }}</p>
+      </div>
+
 
         <button
           type="submit"
@@ -57,5 +67,6 @@ const form = useForm({
   name: '',
   email: '',
   password: '',
+  password_confirmation: '', 
 })
 </script>

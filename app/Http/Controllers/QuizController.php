@@ -14,13 +14,15 @@ class QuizController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
+        $validated = $request->validate([
+           
             'title' => 'required|string',
-            'total_questions' => 'required|integer|min:1',
+            'description' => 'required|string',
+            'category_id' => 'required',
+          
         ]);
-
-        return Quiz::create($request->only('category_id', 'title', 'total_questions'));
+        Quiz::create($validated);
+        return redirect()->route('admin.quizzes.index')->with('success', 'Quiz created successfully.');
     }
 
     public function show($id)
@@ -30,9 +32,18 @@ class QuizController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+           
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'category_id' => 'required',
+          
+        ]);
         $quiz = Quiz::findOrFail($id);
-        $quiz->update($request->only('category_id', 'title', 'total_questions'));
-        return $quiz;
+        
+        $quiz->update($validated);
+        
+        return redirect()->route('admin.quizzes.index')->with('success', 'Quiz updated successfully!');
     }
 
     public function destroy($id)

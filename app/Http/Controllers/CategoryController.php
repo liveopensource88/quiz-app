@@ -37,22 +37,25 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //dd($request);
+      
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
-
+        $category = Category::findOrFail($id);
+   
         $category->update($validated);
 
-        //return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully!');
+
     }
 
     public function destroy($id)
     {
         Category::destroy($id);
         return response()->json(['message' => 'Deleted']);
+
     }
 }

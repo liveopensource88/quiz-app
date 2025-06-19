@@ -1,4 +1,5 @@
 <template>
+
   <DashboardLayout>
     <h1 class="text-2xl font-bold mb-6">Edit Category</h1>
 
@@ -12,6 +13,8 @@
       <div>
         <label class="block font-semibold mb-1">Description</label>
         <textarea v-model="form.description" class="w-full px-4 py-2 border rounded"></textarea>
+
+        
         <p v-if="form.errors.description" class="text-red-500 text-sm mt-1">{{ form.errors.description }}</p>
       </div>
 
@@ -26,7 +29,8 @@
 import { useForm } from '@inertiajs/vue3'
 import { defineProps } from 'vue'
 import DashboardLayout from '@/Layouts/DashboardLayout.vue'
-
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 const props = defineProps({
   category: Object
 })
@@ -38,6 +42,6 @@ const form = useForm({
 
 function updateCategory() {
 
-  form.put(route('api.admin.categories.update', props.category.id))
+  form.put(route('admin.categories.update', props.category.id))
 }
 </script>
